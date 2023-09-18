@@ -3,19 +3,18 @@ import tkinter as tk
 from tkinter import ttk
 from functools import partial
 
-
 # Счётчик
 COUNTER = 0
 
 
 # Функция, которая увеличивает значение счётчика
-def plus_some_value(value=1):
+def plus_some_value(value):
     global COUNTER
 
     COUNTER += value
     counter["text"] = f"{COUNTER}"
 
-    if COUNTER > 10:
+    if COUNTER == 10:
         btn2.pack()
 
 
@@ -26,22 +25,18 @@ window.iconbitmap(default="icon.ico")
 window.geometry("400x350")
 window.resizable(False, False)
 
-
 # Кнопка, для отображения счётчика
 counter = ttk.Button(text=f"{COUNTER}", width=10, state="disabled")
 counter.pack()
-
 
 # Кнопка, которая увеличивает значение счётчика на единицу
 plus_one = partial(plus_some_value, 1)
 btn1 = ttk.Button(text=f"+1", command=plus_one, width=10)
 btn1.pack()
 
-
 # Кнопка, которая увеличивает значение счётчика на десять
 plus_ten = partial(plus_some_value, 10)
 btn2 = ttk.Button(text="+10", command=plus_ten, width=10)
-
 
 # Отображение окна
 window.mainloop()
