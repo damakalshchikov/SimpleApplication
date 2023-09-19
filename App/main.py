@@ -9,13 +9,16 @@ COUNTER = 0
 
 # Функция, которая увеличивает значение счётчика
 def plus_some_value(value):
-    global COUNTER
+    def wrapper():
+        global COUNTER
 
-    COUNTER += value
-    counter["text"] = f"{COUNTER}"
+        COUNTER += value
+        counter["text"] = f"{COUNTER}"
 
-    if COUNTER == 10:
-        btn2.pack()
+        if COUNTER >= 10:
+            btn2.pack()
+
+    return wrapper
 
 
 # Инициализация окна
@@ -30,13 +33,11 @@ counter = ttk.Button(text=f"{COUNTER}", width=10, state="disabled")
 counter.pack()
 
 # Кнопка, которая увеличивает значение счётчика на единицу
-plus_one = partial(plus_some_value, 1)
-btn1 = ttk.Button(text=f"+1", command=plus_one, width=10)
+btn1 = ttk.Button(text=f"+1", command=plus_some_value(1), width=10)
 btn1.pack()
 
 # Кнопка, которая увеличивает значение счётчика на десять
-plus_ten = partial(plus_some_value, 10)
-btn2 = ttk.Button(text="+10", command=plus_ten, width=10)
+btn2 = ttk.Button(text="+10", command=plus_some_value(10), width=10)
 
 # Отображение окна
 window.mainloop()
